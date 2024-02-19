@@ -9,6 +9,13 @@ export const Home: React.FC = () => {
     const [countryName, setCountryName] = useState('');
     const navigate = useNavigate();
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // Check if the input contains any digits
+        if (!/\d/.test(e.target.value)) {
+            setCountryName(e.target.value);
+        }
+    };
+
     const getCuntryName = async (e: FormEvent) => {
         e.preventDefault();
         navigate(`/details/${countryName}`);
@@ -25,7 +32,7 @@ export const Home: React.FC = () => {
                     label="Enter country Name"
                     variant="outlined"
                     data-testid="inputbox-test-id"
-                    onChange={(e) => setCountryName(e.target.value)}
+                    onChange={handleChange}
                 />
             </div>
             <Button size="medium" variant="contained" data-testid="button-testid" disabled={countryName === ''} onClick={getCuntryName}>
